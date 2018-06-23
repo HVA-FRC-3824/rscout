@@ -50,3 +50,53 @@ Keep in mind that a `hotfix` should only be used when the bug is critical or is 
 For a visualization of the workflow set [the Git-Flow cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/).
 
 ### Understanding Android
+
+### Documentation
+Comments are one critical part of readability and maintainability. Everyone knows they should comment their code, and so should you. When writing comments, write them as English prose, which means they should use proper capitalization, punctuation, etc. Aim to describe what the code is trying to do and why, not how it does it at a micro level.
+
+#### Class
+Classes are one fundamental part of a good object oriented design. As such, a class definition should have a comment block that explains what the class is used for and how it works. Every non-trivial class is expected to have a Javadoc comment block.
+
+#### Function
+All functions should have a comment block. A quick note about what it does and a description of the borderline behavior is all that is necessary here (unless something particularly tricky or insidious is going on). The hope is that people can figure out how to use your interfaces (the inputs and output) without reading the code itself.
+
+Good things to talk about here are what happens when something unexpected happens: does the function return null? Abort? Format your hard disk? Eat your cat?
+
+#### Comment Formatting
+Comment are to be formatted as proper Javadoc comments. Include descriptive paragraphs for all public interfaces (public classes, member and non-member functions). Don't just restate the information that can be inferred from the API name. The first sentence (or paragraph beginning with `@brief`) is used as an abstract. Put detailed discussion into separate paragraphs.
+
+To refer to parameter names inside a paragraph, use the `@p` name command.
+
+Wrap non-inline code examples in `@code ... @endcode`. To document a function parameter, start a new paragraph with the `@param` name command. If the parameter is used as an out or an in/out parameter, use the `@param [out] name` or `@param [in,out] name` command, respectively.
+
+To describe a function return value, start a new paragraph with the `@returns` command.
+
+A minimal documentation comment:
+
+```
+// Sets the xyzzzy property to @p baz
+void setXyzzy(bool baz);
+```
+
+A documentation comment that uses all Doxygen features in a preferred way:
+
+```
+/**
+ * @brief Does foo and bar.
+ *
+ * Does not do foo the usual way if @p baz is true.
+ *
+ * Typical usage:
+ * @code
+ *   foobar(false, "quux", res);
+ * @endcode
+ *
+ * @param quux The kind of foo to do.
+ * @param [out] result Filled with bar sequence on foo success.
+ *
+ * @returns True on success.
+ */
+ bool fooBar(bool bax, String quux, ArrayList<Integer> result);
+```
+
+Don't duplicate the documentation comment in the header file and in the implementation file. Put the documentation comments for public APIs into the header file. Documentation comments for private APIs can go to the implementation file. In any case, implementation files can include additional comment (not necessarily in Javadoc markup) to explain implementation details as needed.
